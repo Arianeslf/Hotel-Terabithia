@@ -10,7 +10,7 @@ https://hotel-terabithia-beryl.vercel.app/
 
 ---
 
-# 📋 Sobre o Projeto
+#  Sobre o Projeto
 
 O Hotel Terabithia é uma plataforma administrativa criada para auxiliar funcionários do hotel em tarefas operacionais do dia a dia.
 

@@ -6,8 +6,8 @@ Sistema interno de operações hoteleiras desenvolvido para gerenciamento de res
 
 Acesse o projeto online:
 
-[https://hotel-terabithia-beryl.vercel.app/
-](https://instragam-clone.vercel.app/)
+https://hotel-terabithia-beryl.vercel.app/
+
 ---
 
 # 📋 Sobre o Projeto

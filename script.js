@@ -68,11 +68,14 @@ function login() {
   if (senha === SENHA_SISTEMA) {
     estado.usuarioAtual = usuario;
 
-    pegar("loginScreen").classList.add("hidden");
-    pegar("dashboard").classList.remove("hidden");
+    pegar("loginScreen").classList.add("escondido");
+    pegar("dashboard").classList.remove("escondido");
+
     pegar("nomeUsuario").textContent = usuario;
     pegar("avatar").textContent = usuario.charAt(0).toUpperCase();
-    pegar("mensagemBoasVindas").textContent = `Bem-vindo ao Hotel ${HOTEL}, ${usuario}. É um imenso prazer ter você por aqui!`;
+
+    pegar("mensagemBoasVindas").textContent =
+      `Bem-vindo ao Hotel ${HOTEL}, ${usuario}. É um imenso prazer ter você por aqui!`;
 
     atualizarMapaQuartos();
     return;
@@ -83,9 +86,11 @@ function login() {
 
   if (estado.tentativas >= LIMITE_TENTATIVAS) {
     aviso.innerHTML = `<span class="status-erro">Sistema bloqueado. Limite de tentativas excedido.</span>`;
+
     pegar("usuario").disabled = true;
     pegar("senha").disabled = true;
-    document.querySelector(".login-box button").disabled = true;
+
+    document.querySelector(".caixa-login button").disabled = true;
     return;
   }
 
@@ -93,20 +98,32 @@ function login() {
 }
 
 function abrirModulo(id) {
-  document.querySelectorAll(".modulo").forEach(modulo => modulo.classList.add("hidden"));
-  pegar(id).classList.remove("hidden");
+  document.querySelectorAll(".modulo").forEach(modulo => {
+    modulo.classList.add("escondido");
+  });
+
+  pegar(id).classList.remove("escondido");
 
   if (id === "relatorios") gerarRelatorio();
   if (id === "reservas") atualizarMapaQuartos();
   if (id === "hospedes") listarHospedes();
   if (id === "ar") atualizarListaOrcamentosAr();
 
-  pegar(id).scrollIntoView({ behavior: "smooth", block: "start" });
+  pegar(id).scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 }
 
 function voltarMenu() {
-  document.querySelectorAll(".modulo").forEach(modulo => modulo.classList.add("hidden"));
-  pegar("menuPrincipal").scrollIntoView({ behavior: "smooth", block: "start" });
+  document.querySelectorAll(".modulo").forEach(modulo => {
+    modulo.classList.add("escondido");
+  });
+
+  pegar("menuPrincipal").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 }
 
 function sairSistema() {
@@ -179,6 +196,7 @@ function reservar() {
 
   estado.quartos[quarto - 1] = true;
   estado.receitaHospedagem += total;
+
   estado.reservas.push({
     hospede: nome,
     quarto,
@@ -206,29 +224,40 @@ function reservar() {
 
 function atualizarMapaQuartos() {
   const mapa = pegar("mapaQuartos");
+
   if (!mapa) return;
 
-  let html = `<h3>Mapa de quartos</h3><p><strong>L</strong> = livre | <strong>O</strong> = ocupado</p><div class="quartos-grid">`;
+  let html = `
+    <h3>Mapa de quartos</h3>
+    <p><strong>L</strong> = livre | <strong>O</strong> = ocupado</p>
+    <div class="grade-quartos">
+  `;
 
   estado.quartos.forEach((ocupado, index) => {
     html += `
-      <div class="quarto-box ${ocupado ? "ocupado" : "livre"}">
+      <div class="caixa-quarto ${ocupado ? "ocupado" : "livre"}">
         ${index + 1}<br>${ocupado ? "O" : "L"}
       </div>
     `;
   });
 
   html += "</div>";
+
   mapa.innerHTML = html;
 }
 
 function mostrarAreaHospede(id) {
-  document.querySelectorAll(".painel-hospede").forEach(area => area.classList.add("hidden"));
-  pegar(id).classList.remove("hidden");
+  document.querySelectorAll(".painel-hospede").forEach(area => {
+    area.classList.add("escondido");
+  });
+
+  pegar(id).classList.remove("escondido");
 }
 
 function hospedesOrdenados() {
-  return [...estado.hospedes].sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
+  return [...estado.hospedes].sort((a, b) => {
+    return a.nome.localeCompare(b.nome, "pt-BR");
+  });
 }
 
 function cadastrarHospede() {
@@ -244,14 +273,22 @@ function cadastrarHospede() {
     return;
   }
 
-  const existe = estado.hospedes.some(h => normalizarTexto(h.nome) === normalizarTexto(nome));
+  const existe = estado.hospedes.some(hospede => {
+    return normalizarTexto(hospede.nome) === normalizarTexto(nome);
+  });
+
   if (existe) {
     mostrarErro("listaHospedes", "Hóspede já cadastrado.");
     return;
   }
 
-  estado.hospedes.push({ nome, cadastro: new Date() });
+  estado.hospedes.push({
+    nome,
+    cadastro: new Date()
+  });
+
   pegar("novoHospede").value = "";
+
   mostrarSucesso("listaHospedes", "Hóspede cadastrado com sucesso. Operação realizada com sucesso.");
 }
 
@@ -265,29 +302,51 @@ function listarHospedes() {
 
   let html = `
     <h3>Lista de hóspedes em ordem A-Z</h3>
+
     <table class="tabela">
-      <thead><tr><th>Índice</th><th>Nome</th><th>Data/Hora de cadastro</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Índice</th>
+          <th>Nome</th>
+          <th>Data/Hora de cadastro</th>
+        </tr>
+      </thead>
+
       <tbody>
   `;
 
   lista.forEach((hospede, index) => {
-    html += `<tr><td>${index + 1}</td><td>${hospede.nome}</td><td>${hospede.cadastro.toLocaleString("pt-BR")}</td></tr>`;
+    html += `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${hospede.nome}</td>
+        <td>${hospede.cadastro.toLocaleString("pt-BR")}</td>
+      </tr>
+    `;
   });
 
-  html += "</tbody></table>";
+  html += `
+      </tbody>
+    </table>
+  `;
+
   pegar("listaHospedes").innerHTML = html;
 }
 
 function pesquisarHospedeExato() {
   const nome = valorTexto("pesquisaExata");
-  const encontrado = estado.hospedes.find(h => normalizarTexto(h.nome) === normalizarTexto(nome));
+
+  const encontrado = estado.hospedes.find(hospede => {
+    return normalizarTexto(hospede.nome) === normalizarTexto(nome);
+  });
 
   if (!encontrado) {
     mostrarErro("listaHospedes", "Hóspede não encontrado.");
     return;
   }
 
-  pegar("listaHospedes").innerHTML = `<p class="status-ok">Hóspede ${encontrado.nome} foi encontrado.</p>`;
+  pegar("listaHospedes").innerHTML =
+    `<p class="status-ok">Hóspede ${encontrado.nome} foi encontrado.</p>`;
 }
 
 function pesquisarHospedePrefixo() {
@@ -298,7 +357,9 @@ function pesquisarHospedePrefixo() {
     return;
   }
 
-  const resultados = hospedesOrdenados().filter(h => normalizarTexto(h.nome).startsWith(prefixo));
+  const resultados = hospedesOrdenados().filter(hospede => {
+    return normalizarTexto(hospede.nome).startsWith(prefixo);
+  });
 
   if (resultados.length === 0) {
     mostrarErro("listaHospedes", "Hóspede não encontrado.");
@@ -306,8 +367,13 @@ function pesquisarHospedePrefixo() {
   }
 
   let html = `<h3>Resultados por prefixo</h3><ol>`;
-  resultados.forEach(h => html += `<li>${h.nome}</li>`);
+
+  resultados.forEach(hospede => {
+    html += `<li>${hospede.nome}</li>`;
+  });
+
   html += "</ol>";
+
   pegar("listaHospedes").innerHTML = html;
 }
 
@@ -331,14 +397,19 @@ function atualizarHospede() {
     return;
   }
 
-  const duplicado = estado.hospedes.some(h => h !== hospede && normalizarTexto(h.nome) === normalizarTexto(novoNome));
+  const duplicado = estado.hospedes.some(item => {
+    return item !== hospede && normalizarTexto(item.nome) === normalizarTexto(novoNome);
+  });
+
   if (duplicado) {
     mostrarErro("listaHospedes", "Hóspede já cadastrado.");
     return;
   }
 
   hospede.nome = novoNome;
+
   limparCampos(["indiceAtualizar", "nomeAtualizado"]);
+
   mostrarSucesso("listaHospedes", "Operação realizada com sucesso. Cadastro atualizado.");
 }
 
@@ -351,8 +422,10 @@ function removerHospede() {
     return;
   }
 
-  estado.hospedes = estado.hospedes.filter(h => h !== hospede);
+  estado.hospedes = estado.hospedes.filter(item => item !== hospede);
+
   pegar("indiceRemover").value = "";
+
   mostrarSucesso("listaHospedes", "Operação realizada com sucesso. Cadastro removido.");
 }
 
@@ -364,16 +437,26 @@ function selecionarAuditorio(convidados) {
     };
   }
 
-  return { nome: "Colorado", cadeirasExtras: 0 };
+  return {
+    nome: "Colorado",
+    cadeirasExtras: 0
+  };
 }
 
 function janelaEvento(dia) {
   const d = normalizarTexto(dia);
+
   const semana = ["segunda", "terca", "quarta", "quinta", "sexta"];
   const fimSemana = ["sabado", "domingo"];
 
-  if (semana.includes(d)) return { inicio: 7, fim: 23, valido: true };
-  if (fimSemana.includes(d)) return { inicio: 7, fim: 15, valido: true };
+  if (semana.includes(d)) {
+    return { inicio: 7, fim: 23, valido: true };
+  }
+
+  if (fimSemana.includes(d)) {
+    return { inicio: 7, fim: 15, valido: true };
+  }
+
   return { valido: false };
 }
 
@@ -407,12 +490,14 @@ function calcularEvento() {
   }
 
   const janela = janelaEvento(dia);
+
   if (!janela.valido) {
     mostrarErro(resultado, "Dia da semana inválido. Use segunda, terça, quarta, quinta, sexta, sábado ou domingo.");
     return;
   }
 
   const horaFim = hora + duracao;
+
   if (hora < janela.inicio || horaFim > janela.fim) {
     mostrarErro(resultado, `Auditório indisponível. Nesse dia, o horário permitido é das ${janela.inicio}h às ${janela.fim}h.`);
     return;
@@ -421,10 +506,16 @@ function calcularEvento() {
   const auditorio = selecionarAuditorio(convidados);
   const garcons = Math.ceil(convidados / 12) + Math.floor(duracao / 2);
   const custoGarcons = garcons * duracao * 10.50;
+
   const cafeLitros = convidados * 0.2;
   const aguaLitros = convidados * 0.5;
   const salgados = convidados * 7;
-  const custoBuffet = (cafeLitros * 0.80) + (aguaLitros * 0.40) + ((salgados / 100) * 34);
+
+  const custoBuffet =
+    (cafeLitros * 0.80) +
+    (aguaLitros * 0.40) +
+    ((salgados / 100) * 34);
+
   const total = custoGarcons + custoBuffet;
 
   const status = confirmacao === "S"
@@ -433,6 +524,7 @@ function calcularEvento() {
 
   if (confirmacao === "S") {
     estado.receitaEventos += total;
+
     estado.eventos.push({
       empresa,
       dia,
@@ -467,7 +559,15 @@ function calcularEvento() {
     ${status}
   `;
 
-  if (confirmacao === "S") limparCampos(["convidados", "diaEvento", "horaEvento", "duracaoEvento", "empresaEvento"]);
+  if (confirmacao === "S") {
+    limparCampos([
+      "convidados",
+      "diaEvento",
+      "horaEvento",
+      "duracaoEvento",
+      "empresaEvento"
+    ]);
+  }
 }
 
 function adicionarOrcamentoAr() {
@@ -478,7 +578,15 @@ function adicionarOrcamentoAr() {
   const minimo = valorNumero("minimoAr");
   const deslocamento = valorNumero("deslocamentoAr");
 
-  if (empresa === "" || valor <= 0 || quantidade <= 0 || desconto < 0 || desconto > 100 || minimo < 0 || deslocamento < 0) {
+  if (
+    empresa === "" ||
+    valor <= 0 ||
+    quantidade <= 0 ||
+    desconto < 0 ||
+    desconto > 100 ||
+    minimo < 0 ||
+    deslocamento < 0
+  ) {
     mostrarErro("resultadoAr", "Preencha todos os dados corretamente para adicionar o orçamento.");
     return;
   }
@@ -487,13 +595,33 @@ function adicionarOrcamentoAr() {
   const valorDesconto = quantidade >= minimo ? bruto * (desconto / 100) : 0;
   const total = bruto - valorDesconto + deslocamento;
 
-  estado.orcamentosAr.push({ empresa, valor, quantidade, desconto, minimo, deslocamento, bruto, valorDesconto, total });
-  limparCampos(["empresaAr", "valorAr", "quantidadeAr", "descontoAr", "minimoAr", "deslocamentoAr"]);
+  estado.orcamentosAr.push({
+    empresa,
+    valor,
+    quantidade,
+    desconto,
+    minimo,
+    deslocamento,
+    bruto,
+    valorDesconto,
+    total
+  });
+
+  limparCampos([
+    "empresaAr",
+    "valorAr",
+    "quantidadeAr",
+    "descontoAr",
+    "minimoAr",
+    "deslocamentoAr"
+  ]);
+
   atualizarListaOrcamentosAr();
 }
 
 function atualizarListaOrcamentosAr() {
   const box = pegar("resultadoAr");
+
   if (!box) return;
 
   if (estado.orcamentosAr.length === 0) {
@@ -501,13 +629,40 @@ function atualizarListaOrcamentosAr() {
     return;
   }
 
-  let html = `<h3>Orçamentos cadastrados</h3><table class="tabela"><thead><tr><th>Empresa</th><th>Bruto</th><th>Desconto</th><th>Deslocamento</th><th>Total</th></tr></thead><tbody>`;
+  let html = `
+    <h3>Orçamentos cadastrados</h3>
 
-  estado.orcamentosAr.forEach(o => {
-    html += `<tr><td>${o.empresa}</td><td>${dinheiro(o.bruto)}</td><td>${dinheiro(o.valorDesconto)}</td><td>${dinheiro(o.deslocamento)}</td><td><strong>${dinheiro(o.total)}</strong></td></tr>`;
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Empresa</th>
+          <th>Bruto</th>
+          <th>Desconto</th>
+          <th>Deslocamento</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+
+      <tbody>
+  `;
+
+  estado.orcamentosAr.forEach(orcamento => {
+    html += `
+      <tr>
+        <td>${orcamento.empresa}</td>
+        <td>${dinheiro(orcamento.bruto)}</td>
+        <td>${dinheiro(orcamento.valorDesconto)}</td>
+        <td>${dinheiro(orcamento.deslocamento)}</td>
+        <td><strong>${dinheiro(orcamento.total)}</strong></td>
+      </tr>
+    `;
   });
 
-  html += "</tbody></table>";
+  html += `
+      </tbody>
+    </table>
+  `;
+
   box.innerHTML = html;
 }
 
@@ -517,12 +672,18 @@ function finalizarOrcamentosAr() {
     return;
   }
 
-  const ordenados = [...estado.orcamentosAr].sort((a, b) => a.total - b.total);
+  const ordenados = [...estado.orcamentosAr].sort((a, b) => {
+    return a.total - b.total;
+  });
+
   const menor = ordenados[0];
   const maior = ordenados[ordenados.length - 1];
-  const diferencaPercentual = ((maior.total - menor.total) / menor.total) * 100;
+
+  const diferencaPercentual =
+    ((maior.total - menor.total) / menor.total) * 100;
 
   atualizarListaOrcamentosAr();
+
   pegar("resultadoAr").innerHTML += `
     <hr>
     <h3>Comparativo final</h3>
@@ -551,7 +712,12 @@ function calcularCombustivel() {
   const alcoolStark = valorNumero("alcoolStark");
   const gasolinaStark = valorNumero("gasolinaStark");
 
-  if (alcoolWayne <= 0 || gasolinaWayne <= 0 || alcoolStark <= 0 || gasolinaStark <= 0) {
+  if (
+    alcoolWayne <= 0 ||
+    gasolinaWayne <= 0 ||
+    alcoolStark <= 0 ||
+    gasolinaStark <= 0
+  ) {
     mostrarErro("resultadoCombustivel", "Informe todos os preços corretamente. Os valores precisam ser maiores que zero.");
     return;
   }
@@ -563,20 +729,42 @@ function calcularCombustivel() {
 
   let html = `
     <h3>Ranking de abastecimento</h3>
+
     <table class="tabela">
-      <thead><tr><th>Posição</th><th>Posto</th><th>Melhor combustível</th><th>Preço usado</th><th>Total para 42L</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Posição</th>
+          <th>Posto</th>
+          <th>Melhor combustível</th>
+          <th>Preço usado</th>
+          <th>Total para 42L</th>
+        </tr>
+      </thead>
+
       <tbody>
   `;
 
-  resultados.forEach((r, index) => {
-    html += `<tr><td>${index + 1}º</td><td>${r.posto}</td><td>${r.combustivel}</td><td>${dinheiro(r.preco)}</td><td><strong>${dinheiro(r.total)}</strong></td></tr>`;
+  resultados.forEach((resultado, index) => {
+    html += `
+      <tr>
+        <td>${index + 1}º</td>
+        <td>${resultado.posto}</td>
+        <td>${resultado.combustivel}</td>
+        <td>${dinheiro(resultado.preco)}</td>
+        <td><strong>${dinheiro(resultado.total)}</strong></td>
+      </tr>
+    `;
   });
 
   const melhor = resultados[0];
+
   html += `
       </tbody>
     </table>
-    <p class="status-ok">${estado.usuarioAtual}, é mais barato abastecer com ${melhor.combustivel.toLowerCase()} no posto ${melhor.posto}.</p>
+
+    <p class="status-ok">
+      ${estado.usuarioAtual}, é mais barato abastecer com ${melhor.combustivel.toLowerCase()} no posto ${melhor.posto}.
+    </p>
   `;
 
   pegar("resultadoCombustivel").innerHTML = html;
@@ -589,16 +777,48 @@ function gerarRelatorio() {
 
   pegar("dadosRelatorio").innerHTML = `
     <h3>Relatório geral do Hotel ${HOTEL}</h3>
+
     <table class="tabela">
       <tbody>
-        <tr><th>Total de reservas confirmadas</th><td>${estado.reservas.length}</td></tr>
-        <tr><th>Quartos ocupados</th><td>${ocupados} de ${TOTAL_QUARTOS}</td></tr>
-        <tr><th>Taxa de ocupação atual</th><td>${taxaOcupacao.toFixed(1)}%</td></tr>
-        <tr><th>Quantidade de hóspedes cadastrados</th><td>${estado.hospedes.length}</td></tr>
-        <tr><th>Quantidade de eventos confirmados</th><td>${estado.eventos.length}</td></tr>
-        <tr><th>Receita acumulada com hospedagem</th><td>${dinheiro(estado.receitaHospedagem)}</td></tr>
-        <tr><th>Receita acumulada com eventos</th><td>${dinheiro(estado.receitaEventos)}</td></tr>
-        <tr><th>Receita total geral</th><td><strong>${dinheiro(receitaTotal)}</strong></td></tr>
+        <tr>
+          <th>Total de reservas confirmadas</th>
+          <td>${estado.reservas.length}</td>
+        </tr>
+
+        <tr>
+          <th>Quartos ocupados</th>
+          <td>${ocupados} de ${TOTAL_QUARTOS}</td>
+        </tr>
+
+        <tr>
+          <th>Taxa de ocupação atual</th>
+          <td>${taxaOcupacao.toFixed(1)}%</td>
+        </tr>
+
+        <tr>
+          <th>Quantidade de hóspedes cadastrados</th>
+          <td>${estado.hospedes.length}</td>
+        </tr>
+
+        <tr>
+          <th>Quantidade de eventos confirmados</th>
+          <td>${estado.eventos.length}</td>
+        </tr>
+
+        <tr>
+          <th>Receita acumulada com hospedagem</th>
+          <td>${dinheiro(estado.receitaHospedagem)}</td>
+        </tr>
+
+        <tr>
+          <th>Receita acumulada com eventos</th>
+          <td>${dinheiro(estado.receitaEventos)}</td>
+        </tr>
+
+        <tr>
+          <th>Receita total geral</th>
+          <td><strong>${dinheiro(receitaTotal)}</strong></td>
+        </tr>
       </tbody>
     </table>
   `;

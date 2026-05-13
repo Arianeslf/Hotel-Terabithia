@@ -1,257 +1,593 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hotel Terabithia</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Terabithia</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="blur blur1"></div>
-  <div class="blur blur2"></div>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="efeito efeito1"></div>
+    <div class="efeito efeito2"></div>
 
-  <main>
-    <section class="login-screen" id="loginScreen">
-      <div class="login-box">
-        <span class="tag">Sistema interno</span>
-        <h1>Bem-vindo ao Hotel Terabithia</h1>
-        <p class="sub">Plataforma interna de operações hoteleiras para colaboradores.</p>
+    <main>
+      <section class="tela-login" id="loginScreen">
+        <div class="caixa-login">
+          <span class="etiqueta">Sistema interno</span>
+          <h1>Bem-vindo ao Hotel Terabithia</h1>
+          <p class="subtitulo">
+            Plataforma interna de operações hoteleiras para colaboradores.
+          </p>
 
-        <div class="input-group">
-          <label for="usuario">Usuário</label>
-          <input type="text" id="usuario" placeholder="Digite seu nome" autocomplete="name" />
-        </div>
-
-        <div class="input-group">
-          <label for="senha">Senha</label>
-          <input type="password" id="senha" placeholder="Senha obrigatória: 2678" autocomplete="current-password" />
-        </div>
-
-        <button type="button" onclick="login()">Entrar no sistema</button>
-        <p class="aviso" id="avisoLogin">Você tem até 3 tentativas de senha.</p>
-      </div>
-    </section>
-
-    <section class="dashboard hidden" id="dashboard">
-      <header class="topbar">
-        <div>
-          <span class="tag">Hotel Terabithia</span>
-          <h2>Sistema Administrativo</h2>
-          <p id="mensagemBoasVindas">Bem-vindo ao Hotel Terabithia.</p>
-        </div>
-
-        <div class="top-user">
-          <div class="avatar" id="avatar">H</div>
-          <div>
-            <strong id="nomeUsuario">Funcionário</strong>
-            <span>Funcionário autenticado</span>
+          <div class="grupo-input">
+            <label for="usuario">Usuário</label>
+            <input
+              type="text"
+              id="usuario"
+              placeholder="Digite seu nome"
+              autocomplete="name"
+            />
           </div>
+
+          <div class="grupo-input">
+            <label for="senha">Senha</label>
+            <input
+              type="password"
+              id="senha"
+              placeholder="Senha obrigatória: 2678"
+              autocomplete="current-password"
+            />
+          </div>
+
+          <button type="button" onclick="login()">Entrar no sistema</button>
+          <p class="mensagem-aviso" id="avisoLogin">
+            Você tem até 3 tentativas de senha.
+          </p>
         </div>
-      </header>
-
-      <section class="cards" id="menuPrincipal">
-        <button class="card" type="button" onclick="abrirModulo('reservas')">
-          <span>01</span>
-          <h3>Reservas de Quartos</h3>
-          <p>Diárias, tipo de quarto, confirmação e mapa de ocupação.</p>
-        </button>
-
-        <button class="card" type="button" onclick="abrirModulo('hospedes')">
-          <span>02</span>
-          <h3>Cadastro de Hóspedes</h3>
-          <p>Cadastrar, pesquisar, listar, atualizar e remover hóspedes.</p>
-        </button>
-
-        <button class="card" type="button" onclick="abrirModulo('eventos')">
-          <span>03</span>
-          <h3>Eventos</h3>
-          <p>Auditório, agenda, garçons, buffet e relatório técnico.</p>
-        </button>
-
-        <button class="card" type="button" onclick="abrirModulo('ar')">
-          <span>04</span>
-          <h3>Ar-Condicionado</h3>
-          <p>Orçamentos técnicos com desconto, deslocamento e comparação.</p>
-        </button>
-
-        <button class="card" type="button" onclick="abrirModulo('abastecimento')">
-          <span>05</span>
-          <h3>Abastecimento</h3>
-          <p>Comparação entre Wayne Oil e Stark Petrol para 42 litros.</p>
-        </button>
-
-        <button class="card" type="button" onclick="abrirModulo('relatorios')">
-          <span>06</span>
-          <h3>Relatórios Operacionais</h3>
-          <p>Reservas, hóspedes, eventos, ocupação e receitas acumuladas.</p>
-        </button>
-
-        <button class="card sair" type="button" onclick="sairSistema()">
-          <span>07</span>
-          <h3>Sair</h3>
-          <p>Encerrar a sessão do funcionário no sistema.</p>
-        </button>
       </section>
 
-      <section class="modulo hidden" id="reservas">
-        <div class="module-head">
+      <section class="painel escondido" id="dashboard">
+        <header class="topo">
           <div>
-            <span class="tag">Subprograma 1</span>
-            <h2>Reservas de Quartos</h2>
-            <p>Informe os dados da hospedagem e confirme antes de ocupar o quarto.</p>
+            <span class="etiqueta">Hotel Terabithia</span>
+            <h2>Sistema Administrativo</h2>
+            <p id="mensagemBoasVindas">Bem-vindo ao Hotel Terabithia.</p>
           </div>
-          <button class="btn-secondary" type="button" onclick="voltarMenu()">Voltar ao menu</button>
-        </div>
 
-        <div class="grid">
-          <div class="input-group"><label for="diaria">Valor da diária</label><input type="number" id="diaria" placeholder="Ex: 200" min="1" /></div>
-          <div class="input-group"><label for="dias">Quantidade de diárias</label><input type="number" id="dias" placeholder="1 a 30" min="1" max="30" /></div>
-          <div class="input-group"><label for="nomeHospedeReserva">Nome completo do hóspede</label><input type="text" id="nomeHospedeReserva" placeholder="Ex: Carla Souza" /></div>
-          <div class="input-group"><label for="tipoQuarto">Tipo de quarto</label><select id="tipoQuarto"><option value="S">Standard</option><option value="E">Executivo</option><option value="L">Luxo</option></select></div>
-          <div class="input-group"><label for="quarto">Número do quarto</label><input type="number" id="quarto" placeholder="1 a 20" min="1" max="20" /></div>
-          <div class="input-group"><label for="confirmarReserva">Confirmar reserva?</label><select id="confirmarReserva"><option value="S">Sim</option><option value="N">Não</option></select></div>
-        </div>
-
-        <button type="button" onclick="reservar()">Gerar reserva</button>
-        <div class="resultado" id="resultadoReserva"></div>
-        <div class="resultado" id="mapaQuartos"></div>
-      </section>
-
-      <section class="modulo hidden" id="hospedes">
-        <div class="module-head">
-          <div>
-            <span class="tag">Subprograma 2</span>
-            <h2>Cadastro de Hóspedes</h2>
-            <p>Capacidade máxima de 15 hóspedes ativos, com pesquisa e edição por índice.</p>
+          <div class="usuario-topo">
+            <div class="foto-usuario" id="avatar">H</div>
+            <div>
+              <strong id="nomeUsuario">Funcionário</strong>
+              <span>Funcionário autenticado</span>
+            </div>
           </div>
-          <button class="btn-secondary" type="button" onclick="voltarMenu()">Voltar ao menu</button>
-        </div>
+        </header>
 
-        <div class="tabs">
-          <button type="button" onclick="mostrarAreaHospede('areaCadastrar')">Cadastrar</button>
-          <button type="button" onclick="mostrarAreaHospede('areaPesquisarExato')">Pesquisar exato</button>
-          <button type="button" onclick="mostrarAreaHospede('areaPesquisarPrefixo')">Pesquisar prefixo</button>
-          <button type="button" onclick="listarHospedes()">Listar A-Z</button>
-          <button type="button" onclick="mostrarAreaHospede('areaAtualizar')">Atualizar</button>
-          <button type="button" onclick="mostrarAreaHospede('areaRemover')">Remover</button>
-        </div>
+        <section class="cards-menu" id="menuPrincipal">
+          <button
+            class="card-menu"
+            type="button"
+            onclick="abrirModulo('reservas')"
+          >
+            <span>01</span>
+            <h3>Reservas de Quartos</h3>
+            <p>Diárias, tipo de quarto, confirmação e mapa de ocupação.</p>
+          </button>
 
-        <div class="painel-hospede" id="areaCadastrar">
-          <div class="grid one"><div class="input-group"><label for="novoHospede">Nome do hóspede</label><input type="text" id="novoHospede" placeholder="Ex: Rosani Albuquerque" /></div></div>
-          <button type="button" onclick="cadastrarHospede()">Cadastrar hóspede</button>
-        </div>
+          <button
+            class="card-menu"
+            type="button"
+            onclick="abrirModulo('hospedes')"
+          >
+            <span>02</span>
+            <h3>Cadastro de Hóspedes</h3>
+            <p>Cadastrar, pesquisar, listar, atualizar e remover hóspedes.</p>
+          </button>
 
-        <div class="painel-hospede hidden" id="areaPesquisarExato">
-          <div class="grid one"><div class="input-group"><label for="pesquisaExata">Nome exato</label><input type="text" id="pesquisaExata" placeholder="Digite o nome completo" /></div></div>
-          <button type="button" onclick="pesquisarHospedeExato()">Pesquisar</button>
-        </div>
+          <button
+            class="card-menu"
+            type="button"
+            onclick="abrirModulo('eventos')"
+          >
+            <span>03</span>
+            <h3>Eventos</h3>
+            <p>Auditório, agenda, garçons, buffet e relatório técnico.</p>
+          </button>
 
-        <div class="painel-hospede hidden" id="areaPesquisarPrefixo">
-          <div class="grid one"><div class="input-group"><label for="pesquisaPrefixo">Prefixo</label><input type="text" id="pesquisaPrefixo" placeholder="Ex: Ro" /></div></div>
-          <button type="button" onclick="pesquisarHospedePrefixo()">Pesquisar prefixo</button>
-        </div>
+          <button class="card-menu" type="button" onclick="abrirModulo('ar')">
+            <span>04</span>
+            <h3>Ar-Condicionado</h3>
+            <p>Orçamentos técnicos com desconto, deslocamento e comparação.</p>
+          </button>
 
-        <div class="painel-hospede hidden" id="areaAtualizar">
-          <div class="grid"><div class="input-group"><label for="indiceAtualizar">Índice da listagem</label><input type="number" id="indiceAtualizar" min="1" /></div><div class="input-group"><label for="nomeAtualizado">Novo nome</label><input type="text" id="nomeAtualizado" placeholder="Novo nome do hóspede" /></div></div>
-          <button type="button" onclick="atualizarHospede()">Atualizar cadastro</button>
-        </div>
+          <button
+            class="card-menu"
+            type="button"
+            onclick="abrirModulo('abastecimento')"
+          >
+            <span>05</span>
+            <h3>Abastecimento</h3>
+            <p>Comparação entre Wayne Oil e Stark Petrol para 42 litros.</p>
+          </button>
 
-        <div class="painel-hospede hidden" id="areaRemover">
-          <div class="grid one"><div class="input-group"><label for="indiceRemover">Índice da listagem</label><input type="number" id="indiceRemover" min="1" /></div></div>
-          <button type="button" onclick="removerHospede()">Remover cadastro</button>
-        </div>
+          <button
+            class="card-menu"
+            type="button"
+            onclick="abrirModulo('relatorios')"
+          >
+            <span>06</span>
+            <h3>Relatórios Operacionais</h3>
+            <p>Reservas, hóspedes, eventos, ocupação e receitas acumuladas.</p>
+          </button>
 
-        <div class="resultado" id="listaHospedes"></div>
-      </section>
+          <button class="card-menu sair" type="button" onclick="sairSistema()">
+            <span>07</span>
+            <h3>Sair</h3>
+            <p>Encerrar a sessão do funcionário no sistema.</p>
+          </button>
+        </section>
 
-      <section class="modulo hidden" id="eventos">
-        <div class="module-head">
-          <div>
-            <span class="tag">Subprograma 3</span>
-            <h2>Eventos</h2>
-            <p>Capacidade, agenda, garçons, buffet, total e confirmação da reserva.</p>
+        <section class="modulo escondido" id="reservas">
+          <div class="topo-modulo">
+            <div>
+              <span class="etiqueta">Subprograma 1</span>
+              <h2>Reservas de Quartos</h2>
+              <p>
+                Informe os dados da hospedagem e confirme antes de ocupar o
+                quarto.
+              </p>
+            </div>
+            <button
+              class="botao-secundario"
+              type="button"
+              onclick="voltarMenu()"
+            >
+              Voltar ao menu
+            </button>
           </div>
-          <button class="btn-secondary" type="button" onclick="voltarMenu()">Voltar ao menu</button>
-        </div>
 
-        <div class="grid">
-          <div class="input-group"><label for="convidados">Quantidade de convidados</label><input type="number" id="convidados" placeholder="Até 350" min="1" max="350" /></div>
-          <div class="input-group"><label for="diaEvento">Dia da semana</label><input type="text" id="diaEvento" placeholder="segunda, terça, sábado..." /></div>
-          <div class="input-group"><label for="horaEvento">Hora inicial</label><input type="number" id="horaEvento" placeholder="Ex: 13" min="7" max="23" /></div>
-          <div class="input-group"><label for="duracaoEvento">Duração em horas</label><input type="number" id="duracaoEvento" placeholder="1 a 12" min="1" max="12" /></div>
-          <div class="input-group"><label for="empresaEvento">Nome da empresa</label><input type="text" id="empresaEvento" placeholder="Ex: Lojas Transilvânia" /></div>
-          <div class="input-group"><label for="confirmarEvento">Confirmar evento?</label><select id="confirmarEvento"><option value="S">Sim</option><option value="N">Não</option></select></div>
-        </div>
-
-        <button type="button" onclick="calcularEvento()">Gerar relatório do evento</button>
-        <div class="resultado" id="resultadoEvento"></div>
-      </section>
-
-      <section class="modulo hidden" id="ar">
-        <div class="module-head">
-          <div>
-            <span class="tag">Subprograma 4</span>
-            <h2>Ar-Condicionado</h2>
-            <p>Cadastre várias empresas e compare o melhor e o pior orçamento.</p>
+          <div class="grade">
+            <div class="grupo-input">
+              <label for="diaria">Valor da diária</label
+              ><input type="number" id="diaria" placeholder="Ex: 200" min="1" />
+            </div>
+            <div class="grupo-input">
+              <label for="dias">Quantidade de diárias</label
+              ><input
+                type="number"
+                id="dias"
+                placeholder="1 a 30"
+                min="1"
+                max="30"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="nomeHospedeReserva">Nome completo do hóspede</label
+              ><input
+                type="text"
+                id="nomeHospedeReserva"
+                placeholder="Ex: Carla Souza"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="tipoQuarto">Tipo de quarto</label
+              ><select id="tipoQuarto">
+                <option value="S">Standard</option>
+                <option value="E">Executivo</option>
+                <option value="L">Luxo</option>
+              </select>
+            </div>
+            <div class="grupo-input">
+              <label for="quarto">Número do quarto</label
+              ><input
+                type="number"
+                id="quarto"
+                placeholder="1 a 20"
+                min="1"
+                max="20"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="confirmarReserva">Confirmar reserva?</label
+              ><select id="confirmarReserva">
+                <option value="S">Sim</option>
+                <option value="N">Não</option>
+              </select>
+            </div>
           </div>
-          <button class="btn-secondary" type="button" onclick="voltarMenu()">Voltar ao menu</button>
-        </div>
 
-        <div class="grid">
-          <div class="input-group"><label for="empresaAr">Nome da empresa</label><input type="text" id="empresaAr" placeholder="Ex: Clima Forte" /></div>
-          <div class="input-group"><label for="valorAr">Valor por aparelho</label><input type="number" id="valorAr" placeholder="Ex: 120" min="0" /></div>
-          <div class="input-group"><label for="quantidadeAr">Quantidade de aparelhos</label><input type="number" id="quantidadeAr" placeholder="Ex: 10" min="1" /></div>
-          <div class="input-group"><label for="descontoAr">Desconto (%)</label><input type="number" id="descontoAr" placeholder="Ex: 8" min="0" max="100" /></div>
-          <div class="input-group"><label for="minimoAr">Mínimo para desconto</label><input type="number" id="minimoAr" placeholder="Ex: 8" min="0" /></div>
-          <div class="input-group"><label for="deslocamentoAr">Valor fixo de deslocamento</label><input type="number" id="deslocamentoAr" placeholder="Ex: 150" min="0" /></div>
-        </div>
+          <button type="button" onclick="reservar()">Gerar reserva</button>
+          <div class="resultado" id="resultadoReserva"></div>
+          <div class="resultado" id="mapaQuartos"></div>
+        </section>
 
-        <div class="action-row">
-          <button type="button" onclick="adicionarOrcamentoAr()">Adicionar orçamento</button>
-          <button class="btn-secondary" type="button" onclick="finalizarOrcamentosAr()">Finalizar comparação</button>
-        </div>
-        <div class="resultado" id="resultadoAr"></div>
-      </section>
-
-      <section class="modulo hidden" id="abastecimento">
-        <div class="module-head">
-          <div>
-            <span class="tag">Subprograma 5</span>
-            <h2>Abastecimento</h2>
-            <p>Análise econômica entre etanol e gasolina em dois postos conveniados.</p>
+        <section class="modulo escondido" id="hospedes">
+          <div class="topo-modulo">
+            <div>
+              <span class="etiqueta">Subprograma 2</span>
+              <h2>Cadastro de Hóspedes</h2>
+              <p>
+                Capacidade máxima de 15 hóspedes ativos, com pesquisa e edição
+                por índice.
+              </p>
+            </div>
+            <button
+              class="botao-secundario"
+              type="button"
+              onclick="voltarMenu()"
+            >
+              Voltar ao menu
+            </button>
           </div>
-          <button class="btn-secondary" type="button" onclick="voltarMenu()">Voltar ao menu</button>
-        </div>
 
-        <div class="grid">
-          <div class="input-group"><label for="alcoolWayne">Álcool Wayne Oil</label><input type="number" id="alcoolWayne" placeholder="Ex: 4.20" min="0" step="0.01" /></div>
-          <div class="input-group"><label for="gasolinaWayne">Gasolina Wayne Oil</label><input type="number" id="gasolinaWayne" placeholder="Ex: 5.82" min="0" step="0.01" /></div>
-          <div class="input-group"><label for="alcoolStark">Álcool Stark Petrol</label><input type="number" id="alcoolStark" placeholder="Ex: 4.35" min="0" step="0.01" /></div>
-          <div class="input-group"><label for="gasolinaStark">Gasolina Stark Petrol</label><input type="number" id="gasolinaStark" placeholder="Ex: 6.17" min="0" step="0.01" /></div>
-        </div>
-
-        <button type="button" onclick="calcularCombustivel()">Comparar abastecimento</button>
-        <div class="resultado" id="resultadoCombustivel"></div>
-      </section>
-
-      <section class="modulo hidden" id="relatorios">
-        <div class="module-head">
-          <div>
-            <span class="tag">Subprograma 6</span>
-            <h2>Relatórios Operacionais</h2>
-            <p>Consolidação dos dados registrados em memória durante a execução.</p>
+          <div class="abas">
+            <button type="button" onclick="mostrarAreaHospede('areaCadastrar')">
+              Cadastrar
+            </button>
+            <button
+              type="button"
+              onclick="mostrarAreaHospede('areaPesquisarExato')"
+            >
+              Pesquisar exato
+            </button>
+            <button
+              type="button"
+              onclick="mostrarAreaHospede('areaPesquisarPrefixo')"
+            >
+              Pesquisar prefixo
+            </button>
+            <button type="button" onclick="listarHospedes()">Listar A-Z</button>
+            <button type="button" onclick="mostrarAreaHospede('areaAtualizar')">
+              Atualizar
+            </button>
+            <button type="button" onclick="mostrarAreaHospede('areaRemover')">
+              Remover
+            </button>
           </div>
-          <button class="btn-secondary" type="button" onclick="voltarMenu()">Voltar ao menu</button>
-        </div>
-        <div class="resultado" id="dadosRelatorio"></div>
-      </section>
-    </section>
-  </main>
 
-  <script src="script.js"></script>
-</body>
+          <div class="painel-hospede" id="areaCadastrar">
+            <div class="grade um">
+              <div class="grupo-input">
+                <label for="novoHospede">Nome do hóspede</label
+                ><input
+                  type="text"
+                  id="novoHospede"
+                  placeholder="Ex: Rosani Albuquerque"
+                />
+              </div>
+            </div>
+            <button type="button" onclick="cadastrarHospede()">
+              Cadastrar hóspede
+            </button>
+          </div>
+
+          <div class="painel-hospede escondido" id="areaPesquisarExato">
+            <div class="grade um">
+              <div class="grupo-input">
+                <label for="pesquisaExata">Nome exato</label
+                ><input
+                  type="text"
+                  id="pesquisaExata"
+                  placeholder="Digite o nome completo"
+                />
+              </div>
+            </div>
+            <button type="button" onclick="pesquisarHospedeExato()">
+              Pesquisar
+            </button>
+          </div>
+
+          <div class="painel-hospede escondido" id="areaPesquisarPrefixo">
+            <div class="grade um">
+              <div class="grupo-input">
+                <label for="pesquisaPrefixo">Prefixo</label
+                ><input type="text" id="pesquisaPrefixo" placeholder="Ex: Ro" />
+              </div>
+            </div>
+            <button type="button" onclick="pesquisarHospedePrefixo()">
+              Pesquisar prefixo
+            </button>
+          </div>
+
+          <div class="painel-hospede escondido" id="areaAtualizar">
+            <div class="grade">
+              <div class="grupo-input">
+                <label for="indiceAtualizar">Índice da listagem</label
+                ><input type="number" id="indiceAtualizar" min="1" />
+              </div>
+              <div class="grupo-input">
+                <label for="nomeAtualizado">Novo nome</label
+                ><input
+                  type="text"
+                  id="nomeAtualizado"
+                  placeholder="Novo nome do hóspede"
+                />
+              </div>
+            </div>
+            <button type="button" onclick="atualizarHospede()">
+              Atualizar cadastro
+            </button>
+          </div>
+
+          <div class="painel-hospede escondido" id="areaRemover">
+            <div class="grade um">
+              <div class="grupo-input">
+                <label for="indiceRemover">Índice da listagem</label
+                ><input type="number" id="indiceRemover" min="1" />
+              </div>
+            </div>
+            <button type="button" onclick="removerHospede()">
+              Remover cadastro
+            </button>
+          </div>
+
+          <div class="resultado" id="listaHospedes"></div>
+        </section>
+
+        <section class="modulo escondido" id="eventos">
+          <div class="topo-modulo">
+            <div>
+              <span class="etiqueta">Subprograma 3</span>
+              <h2>Eventos</h2>
+              <p>
+                Capacidade, agenda, garçons, buffet, total e confirmação da
+                reserva.
+              </p>
+            </div>
+            <button
+              class="botao-secundario"
+              type="button"
+              onclick="voltarMenu()"
+            >
+              Voltar ao menu
+            </button>
+          </div>
+
+          <div class="grade">
+            <div class="grupo-input">
+              <label for="convidados">Quantidade de convidados</label
+              ><input
+                type="number"
+                id="convidados"
+                placeholder="Até 350"
+                min="1"
+                max="350"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="diaEvento">Dia da semana</label
+              ><input
+                type="text"
+                id="diaEvento"
+                placeholder="segunda, terça, sábado..."
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="horaEvento">Hora inicial</label
+              ><input
+                type="number"
+                id="horaEvento"
+                placeholder="Ex: 13"
+                min="7"
+                max="23"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="duracaoEvento">Duração em horas</label
+              ><input
+                type="number"
+                id="duracaoEvento"
+                placeholder="1 a 12"
+                min="1"
+                max="12"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="empresaEvento">Nome da empresa</label
+              ><input
+                type="text"
+                id="empresaEvento"
+                placeholder="Ex: Lojas Transilvânia"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="confirmarEvento">Confirmar evento?</label
+              ><select id="confirmarEvento">
+                <option value="S">Sim</option>
+                <option value="N">Não</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="button" onclick="calcularEvento()">
+            Gerar relatório do evento
+          </button>
+          <div class="resultado" id="resultadoEvento"></div>
+        </section>
+
+        <section class="modulo escondido" id="ar">
+          <div class="topo-modulo">
+            <div>
+              <span class="etiqueta">Subprograma 4</span>
+              <h2>Ar-Condicionado</h2>
+              <p>
+                Cadastre várias empresas e compare o melhor e o pior orçamento.
+              </p>
+            </div>
+            <button
+              class="botao-secundario"
+              type="button"
+              onclick="voltarMenu()"
+            >
+              Voltar ao menu
+            </button>
+          </div>
+
+          <div class="grade">
+            <div class="grupo-input">
+              <label for="empresaAr">Nome da empresa</label
+              ><input
+                type="text"
+                id="empresaAr"
+                placeholder="Ex: Clima Forte"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="valorAr">Valor por aparelho</label
+              ><input
+                type="number"
+                id="valorAr"
+                placeholder="Ex: 120"
+                min="0"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="quantidadeAr">Quantidade de aparelhos</label
+              ><input
+                type="number"
+                id="quantidadeAr"
+                placeholder="Ex: 10"
+                min="1"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="descontoAr">Desconto (%)</label
+              ><input
+                type="number"
+                id="descontoAr"
+                placeholder="Ex: 8"
+                min="0"
+                max="100"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="minimoAr">Mínimo para desconto</label
+              ><input type="number" id="minimoAr" placeholder="Ex: 8" min="0" />
+            </div>
+            <div class="grupo-input">
+              <label for="deslocamentoAr">Valor fixo de deslocamento</label
+              ><input
+                type="number"
+                id="deslocamentoAr"
+                placeholder="Ex: 150"
+                min="0"
+              />
+            </div>
+          </div>
+
+          <div class="linha-botoes">
+            <button type="button" onclick="adicionarOrcamentoAr()">
+              Adicionar orçamento
+            </button>
+            <button
+              class="botao-secundario"
+              type="button"
+              onclick="finalizarOrcamentosAr()"
+            >
+              Finalizar comparação
+            </button>
+          </div>
+          <div class="resultado" id="resultadoAr"></div>
+        </section>
+
+        <section class="modulo escondido" id="abastecimento">
+          <div class="topo-modulo">
+            <div>
+              <span class="etiqueta">Subprograma 5</span>
+              <h2>Abastecimento</h2>
+              <p>
+                Análise econômica entre etanol e gasolina em dois postos
+                conveniados.
+              </p>
+            </div>
+            <button
+              class="botao-secundario"
+              type="button"
+              onclick="voltarMenu()"
+            >
+              Voltar ao menu
+            </button>
+          </div>
+
+          <div class="grade">
+            <div class="grupo-input">
+              <label for="alcoolWayne">Álcool Wayne Oil</label
+              ><input
+                type="number"
+                id="alcoolWayne"
+                placeholder="Ex: 4.20"
+                min="0"
+                step="0.01"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="gasolinaWayne">Gasolina Wayne Oil</label
+              ><input
+                type="number"
+                id="gasolinaWayne"
+                placeholder="Ex: 5.82"
+                min="0"
+                step="0.01"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="alcoolStark">Álcool Stark Petrol</label
+              ><input
+                type="number"
+                id="alcoolStark"
+                placeholder="Ex: 4.35"
+                min="0"
+                step="0.01"
+              />
+            </div>
+            <div class="grupo-input">
+              <label for="gasolinaStark">Gasolina Stark Petrol</label
+              ><input
+                type="number"
+                id="gasolinaStark"
+                placeholder="Ex: 6.17"
+                min="0"
+                step="0.01"
+              />
+            </div>
+          </div>
+
+          <button type="button" onclick="calcularCombustivel()">
+            Comparar abastecimento
+          </button>
+          <div class="resultado" id="resultadoCombustivel"></div>
+        </section>
+
+        <section class="modulo escondido" id="relatorios">
+          <div class="topo-modulo">
+            <div>
+              <span class="etiqueta">Subprograma 6</span>
+              <h2>Relatórios Operacionais</h2>
+              <p>
+                Consolidação dos dados registrados em memória durante a
+                execução.
+              </p>
+            </div>
+            <button
+              class="botao-secundario"
+              type="button"
+              onclick="voltarMenu()"
+            >
+              Voltar ao menu
+            </button>
+          </div>
+          <div class="resultado" id="dadosRelatorio"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
 </html>

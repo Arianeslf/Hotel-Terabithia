@@ -24,10 +24,12 @@
 body {
   min-height: 100vh;
   color: var(--texto);
+
   background:
     radial-gradient(circle at top left, rgba(236, 72, 153, .22), transparent 30%),
     radial-gradient(circle at bottom right, rgba(109, 40, 217, .18), transparent 28%),
     linear-gradient(135deg, #fff7fd 0%, #f5edff 48%, #ffffff 100%);
+
   padding: 28px;
   overflow-x: hidden;
 }
@@ -37,7 +39,9 @@ main {
   margin: 0 auto;
 }
 
-.blur {
+/* EFEITOS */
+
+.efeito {
   position: fixed;
   width: 320px;
   height: 320px;
@@ -46,48 +50,50 @@ main {
   z-index: -1;
 }
 
-.blur1 {
+.efeito1 {
   background: var(--lilas);
   top: -100px;
   left: -100px;
   opacity: .28;
 }
 
-.blur2 {
+.efeito2 {
   background: var(--rosa);
   right: -100px;
   bottom: -120px;
   opacity: .22;
 }
 
-.hidden {
+
+.escondido {
   display: none !important;
 }
 
-.login-screen {
+
+.tela-login {
   min-height: calc(100vh - 56px);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.login-box,
-.topbar,
+.caixa-login,
+.topo,
 .modulo,
-.card {
+.card-menu {
   background: rgba(255, 255, 255, .92);
   border: 1px solid var(--borda);
   box-shadow: 0 20px 55px rgba(88, 28, 135, .10);
   backdrop-filter: blur(10px);
 }
 
-.login-box {
+.caixa-login {
   width: 100%;
   max-width: 430px;
   padding: 38px;
 }
 
-.tag {
+.etiqueta {
   display: inline-block;
   font-size: 12px;
   font-weight: 800;
@@ -114,21 +120,22 @@ h3 {
   margin-bottom: 10px;
 }
 
-.sub,
-.topbar p,
-.card p,
-.module-head p,
-.aviso {
+.subtitulo,
+.topo p,
+.card-menu p,
+.topo-modulo p,
+.mensagem-aviso {
   color: var(--cinza);
   line-height: 1.6;
 }
 
-.aviso {
+.mensagem-aviso {
   margin-top: 14px;
   font-size: 13px;
 }
 
-.input-group {
+
+.grupo-input {
   margin-bottom: 16px;
 }
 
@@ -159,6 +166,7 @@ select:focus {
   box-shadow: 0 0 0 4px rgba(236, 72, 153, .10);
 }
 
+
 button {
   width: 100%;
   padding: 14px 16px;
@@ -176,17 +184,17 @@ button:hover {
   box-shadow: 0 16px 30px rgba(109, 40, 217, .18);
 }
 
-.btn-secondary {
+.botao-secundario {
   background: #ffffff;
   color: var(--roxo);
   border: 1px solid var(--borda);
 }
 
-.dashboard {
+.painel {
   width: 100%;
 }
 
-.topbar {
+.topo {
   padding: 26px;
   display: flex;
   justify-content: space-between;
@@ -195,21 +203,21 @@ button:hover {
   margin-bottom: 26px;
 }
 
-.top-user {
+.usuario-topo {
   display: flex;
   align-items: center;
   gap: 14px;
   min-width: fit-content;
 }
 
-.top-user span {
+.usuario-topo span {
   display: block;
   color: var(--cinza);
   font-size: 13px;
   margin-top: 3px;
 }
 
-.avatar {
+.foto-usuario {
   width: 50px;
   height: 50px;
   display: grid;
@@ -220,20 +228,21 @@ button:hover {
   border: 3px solid #f9d8ef;
 }
 
-.cards {
+
+.cards-menu {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 18px;
 }
 
-.card {
+.card-menu {
   text-align: left;
   color: var(--texto);
   padding: 26px;
   min-height: 180px;
 }
 
-.card span {
+.card-menu span {
   display: inline-flex;
   width: 40px;
   height: 40px;
@@ -246,25 +255,26 @@ button:hover {
   border: 1px solid #f3c4df;
 }
 
-.card h3 {
+.card-menu h3 {
   font-size: 21px;
 }
 
-.card.sair {
+.card-menu.sair {
   border-color: #fecaca;
 }
 
-.card.sair span {
+.card-menu.sair span {
   background: #fff1f2;
   color: #be123c;
 }
+
 
 .modulo {
   margin-top: 26px;
   padding: 30px;
 }
 
-.module-head {
+.topo-modulo {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -274,40 +284,43 @@ button:hover {
   border-bottom: 1px solid var(--borda);
 }
 
-.module-head .btn-secondary {
+.topo-modulo .botao-secundario {
   max-width: 180px;
 }
 
-.grid {
+
+.grade {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
-.grid.one {
+.grade.um {
   grid-template-columns: 1fr;
 }
 
-.action-row {
+.linha-botoes {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
   margin-top: 8px;
 }
 
-.tabs {
+
+.abas {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 10px;
   margin-bottom: 22px;
 }
 
-.tabs button {
+.abas button {
   padding: 12px;
   background: #fbf5ff;
   border: 1px solid var(--borda);
   color: var(--roxo);
 }
+
 
 .painel-hospede {
   padding: 20px;
@@ -315,6 +328,7 @@ button:hover {
   border: 1px solid var(--borda);
   margin-bottom: 18px;
 }
+
 
 .resultado {
   margin-top: 22px;
@@ -334,6 +348,7 @@ button:hover {
   padding-left: 22px;
 }
 
+
 .status-ok {
   color: var(--sucesso);
   font-weight: 800;
@@ -349,14 +364,16 @@ button:hover {
   font-weight: 800;
 }
 
-.quartos-grid {
+/* QUARTOS */
+
+.grade-quartos {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   margin-top: 14px;
 }
 
-.quarto-box {
+.caixa-quarto {
   padding: 12px;
   text-align: center;
   border: 1px solid var(--borda);
@@ -364,16 +381,17 @@ button:hover {
   font-weight: 800;
 }
 
-.quarto-box.ocupado {
+.caixa-quarto.ocupado {
   background: #fce7f3;
   color: #be185d;
   border-color: #f9a8d4;
 }
 
-.quarto-box.livre {
+.caixa-quarto.livre {
   background: #f5f3ff;
   color: var(--roxo);
 }
+
 
 .tabela {
   width: 100%;
@@ -395,34 +413,36 @@ button:hover {
   color: var(--roxo-escuro);
 }
 
+
 @media (max-width: 780px) {
+
   body {
     padding: 18px;
   }
 
-  .topbar,
-  .module-head {
+  .topo,
+  .topo-modulo {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .module-head .btn-secondary {
+  .topo-modulo .botao-secundario {
     max-width: 100%;
   }
 
-  .grid,
-  .action-row {
+  .grade,
+  .linha-botoes {
     grid-template-columns: 1fr;
   }
 
-  .quartos-grid {
+  .grade-quartos {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .login-box,
+  .caixa-login,
   .modulo,
-  .topbar,
-  .card {
+  .topo,
+  .card-menu {
     padding: 22px;
   }
 }
